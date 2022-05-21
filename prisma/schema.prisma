@@ -7,7 +7,7 @@ model User {
   id Int @id @default(autoincrement()) //PK
   email String @unique
   password String
-  name String?
+  name String
   posts Post[]
 }
 

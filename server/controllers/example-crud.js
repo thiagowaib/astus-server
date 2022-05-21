@@ -4,11 +4,11 @@ const get = (req, res)=>{
 
     const main = async () => {
         const allUsers = await prisma.User.findMany()
-        res.send(allUsers).status(200)
+        res.status(200).send(allUsers)
     }
 
     main()
-        .catch((err)=>{res.sendStatus(505); throw err;})
+        .catch((err)=>{res.status(500).send(err); throw err})
         .finally(async ()=>{await prisma.$disconnect()})
 }
 
@@ -24,7 +24,7 @@ const post = (req, res)=>{
     }
 
     main()
-        .catch((err)=>{res.sendStatus(505); throw err;})
+        .catch((err)=>{res.status(500).send(err)})
         .finally(async ()=>{await prisma.$disconnect(); res.sendStatus(200)})
 }
 
@@ -45,7 +45,7 @@ const put = (req, res)=>{
     }
 
     main()
-        .catch((err)=>{res.sendStatus(505); throw err;})
+        .catch((err)=>{res.status(500).send(err)})
         .finally(async ()=>{await prisma.$disconnect(); res.sendStatus(200)})
 }
 
@@ -63,7 +63,7 @@ const del = (req, res)=>{
     }
 
     main()
-        .catch((err)=>{res.sendStatus(505); throw err;})
+        .catch((err)=>{res.status(500).send(err)})
         .finally(async ()=>{await prisma.$disconnect(); res.sendStatus(200)})
 }
 
