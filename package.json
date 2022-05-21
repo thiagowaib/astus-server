@@ -8,7 +8,7 @@
   "license": "MIT",
   "engines": {
     "npm": "please-use-yarn",
-    "node": ">= 1.22.x",
+    "node": ">= 12.22.x",
     "yarn": ">= 1.22.x"
   },
   "scripts": {
