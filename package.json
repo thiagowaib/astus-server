@@ -1,0 +1,24 @@
+{
+  "name": "astus-server",
+  "version": "1.0.0",
+  "description": "NodeJs Server for Astus Hub",
+  "main": "server/main.js",
+  "repository": "https://github.com/thiagowaib/astus-server.git",
+  "author": "Thiago Waib",
+  "license": "MIT",
+  "engines": {
+    "npm": "please-use-yarn",
+    "node": ">= 1.22.x",
+    "yarn": ">= 1.22.x"
+  },
+  "scripts": {
+    "start": "nodemon ."
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "http": "^0.0.1-security",
+    "nodemon": "^2.0.16"
+  }
+}
