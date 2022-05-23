@@ -15,6 +15,17 @@ const { UserSignUp, UserSignIn, } = require('./controllers/UserController')
 routes.post('/UserSignUp', UserSignUp)
 routes.post('/UserSignIn', UserSignIn)
 
+// * Test Authentication
+const { AuthAccessToken, } = require("./middlewares")
+// Remember to set in Request Headers a field named 
+// "authorization" set to the value of the jwt.
+routes.get('/TestAuth', AuthAccessToken, (req, res)=>{
+    res.send({
+        Description: "JWT Validated",
+        Name: req.payload.name,
+        Email: req.payload.email
+    }).status(200)
+})
 // ==================================
 
 module.exports = routes
