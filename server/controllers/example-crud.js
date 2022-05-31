@@ -7,9 +7,9 @@ const get = (req, res)=>{
         res.status(200).send(allUsers)
     }
 
-    main()
-        .catch((err)=>{res.status(500).send(err); throw err})
-        .finally(async ()=>{await prisma.$disconnect()})
+    main()  
+        .catch((err)=>{res.status(400).send(err)})
+        .finally(async ()=>await prisma.$disconnect())
 }
 
 const post = (req, res)=>{
@@ -24,8 +24,10 @@ const post = (req, res)=>{
     }
 
     main()
-        .catch((err)=>{res.status(500).send(err)})
-        .finally(async ()=>{await prisma.$disconnect(); res.sendStatus(200)})
+        
+    .then(res.sendStatus(200))
+    .catch((err)=>{res.status(400).send(err)})
+    .finally(async ()=>await prisma.$disconnect())
 }
 
 const put = (req, res)=>{
@@ -45,8 +47,9 @@ const put = (req, res)=>{
     }
 
     main()
-        .catch((err)=>{res.status(500).send(err)})
-        .finally(async ()=>{await prisma.$disconnect(); res.sendStatus(200)})
+        .then(res.sendStatus(200))
+        .catch((err)=>{res.status(400).send(err)})
+        .finally(async ()=>await prisma.$disconnect())
 }
 
 const del = (req, res)=>{
@@ -63,8 +66,9 @@ const del = (req, res)=>{
     }
 
     main()
-        .catch((err)=>{res.status(500).send(err)})
-        .finally(async ()=>{await prisma.$disconnect(); res.sendStatus(200)})
+        .then(res.sendStatus(200))
+        .catch((err)=>{res.status(400).send(err)})
+        .finally(async ()=>await prisma.$disconnect())
 }
 
 module.exports = {
