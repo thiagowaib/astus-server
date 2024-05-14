@@ -2,7 +2,7 @@
   "name": "astus-server",
   "version": "1.0.0",
   "description": "NodeJs Server for Astus Hub",
-  "main": "server/main.js",
+  "main": "src/index.js",
   "repository": "https://github.com/thiagowaib/astus-server.git",
   "author": "Thiago Waib",
   "license": "MIT",

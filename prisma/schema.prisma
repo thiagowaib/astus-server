@@ -1,6 +1,10 @@
 datasource db {
-  url = env("DATABASE_URL")
-  provider = "mysql"
+  provider = "sqlite"
+  url      = "file:./db/astus.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
 }
 
 model User {
@@ -17,6 +21,3 @@ model Post {
   author User @relation(fields: [authorId], references: [id])  // [FK],[User's PK]
 }
 
-generator client {
-  provider = "prisma-client-js"
-}

@@ -10,6 +10,6 @@ app.use(require('./routes'))
 const http = require('http').Server(app)
 const port = process.env.SERVER_PORT
 
-http.listen(port || 5000, () => {
+http.listen(port, () => {
     console.log(`Astus Hub server open on port ${port}`)
 })

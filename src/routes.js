@@ -12,14 +12,14 @@ routes.delete('/delete/:email', del)
 
 // * User Controller
 const { UserSignUp, UserSignIn, } = require('./controllers/UserController')
-routes.post('/UserSignUp', UserSignUp)
-routes.post('/UserSignIn', UserSignIn)
+routes.post('/user/signup', UserSignUp)
+routes.post('/user/signin', UserSignIn)
 
 // * Test Authentication
 const { AuthAccessToken, } = require("./middlewares")
 // Remember to set in Request Headers a field named 
 // "authorization" set to the value of the jwt.
-routes.get('/TestAuth', AuthAccessToken, (req, res)=>{
+routes.get('/auth/test', AuthAccessToken, (req, res)=>{
     res.send({
         Description: "JWT Validated",
         Name: req.payload.name,

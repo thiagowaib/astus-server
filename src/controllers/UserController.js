@@ -1,9 +1,13 @@
 const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
-const jwt = require('jsonwebtoken')
+const prisma           = new PrismaClient()
+const jwt              = require('jsonwebtoken')
+const {ValidateReq}    = require("../services")
 
 const UserSignUp = (req, res) => {    
     const main = async () => {
+
+        if(!ValidateReq(req, ["email", "name", "password"])) { throw {err: "Campos não preenchidos"} }
+
         const {email, name, password} = req.body
         const {HashPwd} = require('../services')
         await prisma.User.create({
@@ -17,12 +21,14 @@ const UserSignUp = (req, res) => {
     }
 
     main()
-        .catch((err)=>{res.status(400).send(err); throw err})
+        .catch((err)=>{res.status(400).send(err);})
         .finally(async ()=>{await prisma.$disconnect()})
 }
 
 const UserSignIn = (req, res) => {    
     const main = async () => {
+        if(!ValidateReq(req, ["email", "password"])) { throw {err: "Campos não preenchidos"} }
+
         const {email, password} = req.body
         const { AuthPwd, SetExpDate } = require('../services')
         
@@ -52,7 +58,7 @@ const UserSignIn = (req, res) => {
     }
 
     main()
-        .catch((err)=>{res.status(400).send(err); throw err})
+        .catch((err)=>{res.status(400).send(err);})
         .finally(async ()=>{await prisma.$disconnect()})
 }
 
