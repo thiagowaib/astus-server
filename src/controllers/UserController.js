@@ -6,7 +6,7 @@ const {ValidateReq}    = require("../services")
 const UserSignUp = (req, res) => {    
     const main = async () => {
 
-        if(!ValidateReq(req, ["email", "name", "password"])) { throw {err: "Campos não preenchidos"} }
+        if(!ValidateReq(req, ["email", "name", "password"])) { throw {err: "Requisição mal-formatada"} }
 
         const {email, name, password} = req.body
         const {HashPwd} = require('../services')
@@ -21,13 +21,13 @@ const UserSignUp = (req, res) => {
     }
 
     main()
-        .catch((err)=>{res.status(400).send(err);})
+        .catch((err)=>{res.status(400).send(err.message||err);})
         .finally(async ()=>{await prisma.$disconnect()})
 }
 
 const UserSignIn = (req, res) => {    
     const main = async () => {
-        if(!ValidateReq(req, ["email", "password"])) { throw {err: "Campos não preenchidos"} }
+        if(!ValidateReq(req, ["email", "password"])) { throw {err: "Requisição mal-formatada"} }
 
         const {email, password} = req.body
         const { AuthPwd, SetExpDate } = require('../services')
@@ -58,7 +58,7 @@ const UserSignIn = (req, res) => {
     }
 
     main()
-        .catch((err)=>{res.status(400).send(err);})
+        .catch((err)=>{res.status(400).send(err.message||err);})
         .finally(async ()=>{await prisma.$disconnect()})
 }
 

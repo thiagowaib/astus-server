@@ -1,5 +1,6 @@
 const express = require('express');
 const routes = new express.Router();
+const { AuthAccessToken, } = require("./middlewares")
 
 // ========== Routing ===============
 
@@ -15,10 +16,15 @@ const { UserSignUp, UserSignIn, } = require('./controllers/UserController')
 routes.post('/user/signup', UserSignUp)
 routes.post('/user/signin', UserSignIn)
 
+// * Post Controller
+const { PostCreate, PostFetch, PostLike} = require('./controllers/PostController')
+routes.post('/post/create', AuthAccessToken, PostCreate)
+routes.get('/post/fetch', AuthAccessToken, PostFetch)
+routes.put('/post/like', AuthAccessToken, PostLike)
+
 // * Test Authentication
-const { AuthAccessToken, } = require("./middlewares")
 // Remember to set in Request Headers a field named 
-// "authorization" set to the value of the jwt.
+// "Authorization" set to the value of the jwt.
 routes.get('/auth/test', AuthAccessToken, (req, res)=>{
     res.send({
         Description: "JWT Validated",

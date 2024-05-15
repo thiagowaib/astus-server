@@ -8,16 +8,32 @@ generator client {
 }
 
 model User {
-  id Int @id @default(autoincrement()) //PK
-  email String @unique
-  password String
-  name String
-  posts Post[]
+  id        String    @id @default(uuid()) 
+  email     String    @unique
+  password  String
+  name      String
+  posts     Post[]
+  comments  Comment[]
 }
 
 model Post {
-  id Int @id @default(autoincrement()) //PK
-  authorId Int                        //FK
-  author User @relation(fields: [authorId], references: [id])  // [FK],[User's PK]
+  id          String    @id @default(uuid()) 
+  authorId    String                        
+  title       String
+  description String
+  media       Bytes    
+  createdAt   DateTime  @default(now())   
+  score       BigInt    @default(0)
+  author      User      @relation(fields: [authorId], references: [id]) 
+  comments    Comment[]
 }
 
+model Comment {
+  id        String    @id @default(uuid()) 
+  postId    String                       
+  post      Post      @relation(fields: [postId], references: [id])
+  authorId  String                       
+  author    User      @relation(fields: [authorId], references: [id])
+  content   String
+  createdAt DateTime  @default(now())
+}
