@@ -7,11 +7,9 @@ const PostCreate = (req, res) => {
 
         if(!ValidateReq(req, ["email", "title", "description", "media"])) { throw {err: "Requisição mal-formatada"} }
         const {email, title, description, media} = req.body
-        const author = await prisma.User.findUnique({
-            where: {
-                email: email,
-            },
-        })
+        
+        const {FetchUser} = require("../services")
+        const author = await FetchUser(email)
 
         if(author) {
             await prisma.Post.create({
@@ -25,32 +23,6 @@ const PostCreate = (req, res) => {
             res.status(201).send({message: "Post criado"})
         } else {
             res.status(404).send({message: "Autor não encontrado"})
-        }
-    }
-
-    main()
-        .catch((err)=>{res.status(400).send(err.message||err);})
-        .finally(async ()=>{await prisma.$disconnect()})
-}
-
-const PostLike = (req, res) => {
-    const main = async () => {
-
-        if(!ValidateReq(req, ["id"])) { throw {err: "Requisição mal-formatada"} }
-        const {id} = req.body
-        const post = await prisma.Post.update({
-            where: {
-                id: id,
-            },
-            data: {
-                score: {increment: 1}
-            }
-        })
-
-        if(post) {
-            res.status(201).send({message: "Post atualizado"})
-        } else {
-            res.status(404).send({message: "Post não encontrado"})
         }
     }
 
@@ -96,5 +68,4 @@ const PostFetch = (req, res) => {
 module.exports = {
     PostCreate,
     PostFetch,
-    PostLike,
 }

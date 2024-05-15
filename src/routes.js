@@ -17,10 +17,13 @@ routes.post('/user/signup', UserSignUp)
 routes.post('/user/signin', UserSignIn)
 
 // * Post Controller
-const { PostCreate, PostFetch, PostLike} = require('./controllers/PostController')
+const { PostCreate, PostFetch} = require('./controllers/PostController')
 routes.post('/post/create', AuthAccessToken, PostCreate)
-routes.get('/post/fetch', AuthAccessToken, PostFetch)
-routes.put('/post/like', AuthAccessToken, PostLike)
+routes.post('/post/fetch', AuthAccessToken, PostFetch)
+
+// * Like Controller
+const {Like} = require('./controllers/LikeController')
+routes.put('/like', AuthAccessToken, Like)
 
 // * Test Authentication
 // Remember to set in Request Headers a field named 

@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
       process.env.JWT_ACCESS_TOKEN_SECRET,
       (err, payload) => {
           if (err) return res.sendStatus(403)
-          if (payload.exp <= Date.now()) return res.sendStatus(410)
+          if (payload.exp <= Date.now()) return res.sendStatus(401)
           req.payload = payload
           next()
       }
